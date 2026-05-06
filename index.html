@@ -135,11 +135,11 @@ var resetPending=false;
 document.getElementById('resetBtn').addEventListener('click',function(){if(!resetPending){resetPending=true;this.textContent='⚠️ ¿SEGURO? Toca otra vez';this.style.background='rgba(244,67,54,.5)';var btn=this;setTimeout(function(){resetPending=false;btn.textContent='🗑️ Reiniciar progreso';btn.style.background=''},3000)}else{st={trophies:0,level:1,weapon:'pistol',char:'soldier',map:0,coins:0,cLv:{},wLv:{},mode:'solo',tSz:2};svSt();resetPending=false;this.textContent='✅ ¡Borrado!';this.style.background='';var btn=this;setTimeout(function(){btn.textContent='🗑️ Reiniciar progreso';refreshMenu()},1500)}});
 
 // ========== UPGRADES ==========
-var MAXLV=10;
+var MAXLV=25;
 function cL(k){return st.cLv[k]||1}function wL(k){return st.wLv[k]||1}
-function cCo(lv){return Math.floor(40*Math.pow(1.5,lv-1))}function wCo(lv){return Math.floor(30*Math.pow(1.4,lv-1))}
-function cM(lv){return{hp:1+(lv-1)*.12,sp:1+(lv-1)*.03,dm:1+(lv-1)*.08,sc:1+(lv-1)*.05,dr:Math.min(.3,(lv-1)*.03)}}
-function wM(lv){return{dm:1+(lv-1)*.1,rl:1/(1+(lv-1)*.06),lf:1+(lv-1)*.05,sp:1+(lv-1)*.02,rd:1+(lv-1)*.03}}
+function cCo(lv){return Math.floor(30*Math.pow(1.25,lv-1))}function wCo(lv){return Math.floor(25*Math.pow(1.22,lv-1))}
+function cM(lv){return{hp:1+(lv-1)*.08,sp:1+(lv-1)*.02,dm:1+(lv-1)*.06,sc:1+(lv-1)*.04,dr:Math.min(.5,(lv-1)*.02)}}
+function wM(lv){return{dm:1+(lv-1)*.07,rl:1/(1+(lv-1)*.04),lf:1+(lv-1)*.04,sp:1+(lv-1)*.015,rd:1+(lv-1)*.02}}
 function lvCn(lv){return Math.floor((30+lv*10)*(lv%5===0?3:1))}
 
 // ========== 8 MAPS (1100x1500) ==========
@@ -176,7 +176,7 @@ var MAPS=[
     {x:740,y:780,w:160,h:80},{x:440,y:900,w:220,h:80},
     {x:80,y:1100,w:300,h:60},{x:720,y:1100,w:300,h:60}],
  b:[{x:240,y:420,w:100,h:80},{x:760,y:420,w:100,h:80},{x:460,y:1050,w:180,h:80}],
- p:[[{x:80,y:80},{x:550,y:750}],[{x:1020,y:80},{x:550,y:750}],[{x:550,y:1400},{x:550,y:750}]]},
+ p:[[{x:80,y:80},{x:1020,y:1400}],[{x:1020,y:80},{x:80,y:1400}],[{x:550,y:80},{x:550,y:1400}]]},
 
 // MAP 3: TEMPLO MAYA — pirámides y jungla antigua
 {nm:'🏯 Templo Maya',b1:'#2D1B00',b2:'#3D2500',bd:'#FFD600',co:150,
@@ -255,7 +255,21 @@ gladiator:{nm:'Toro "Furia" Blanco',ic:'⚔️',sk:'#D2956A',hr:'#4E342E',hs:'mo
 sniper_f:{nm:'Vera "Un Tiro"',ic:'🎯',sk:'#FDEBD0',hr:'#B0BEC5',hs:'bun',ar:'#1A237E',al:'#5C6BC0',pt:'#0D47A1',ds:'Letal',hp:60,sp:2.2,rd:19,co:250,
   helmet:'#37474F',helmetV:'#78909C',beret:false,mask:false,beard:null,bandana:null,goggle:true,scar:false,eyeL:'#00BCD4',type:'sniper'},
 cyborg:{nm:'Unit-7 "ZEUS"',ic:'🤖',sk:'#7986CB',hr:'#00BCD4',hs:'visor',ar:'#263238',al:'#546E7A',pt:'#1C2B35',ds:'Máquina',hp:130,sp:3.0,rd:22,co:500,
-  helmet:'#263238',helmetV:'#00E5FF',beret:false,mask:'cyber',beard:null,bandana:null,goggle:false,scar:false,eyeL:'#00E5FF',type:'cyborg'}
+  helmet:'#263238',helmetV:'#00E5FF',beret:false,mask:'cyber',beard:null,bandana:null,goggle:false,scar:false,eyeL:'#00E5FF',type:'cyborg'},
+phantom:{nm:'Kai "Phantom"',ic:'👻',sk:'#D0D0D0',hr:'#4A148C',hs:'long',ar:'#1A1A2E',al:'#4A4A7E',pt:'#0D0D1A',ds:'Invisible',hp:65,sp:3.8,rd:18,co:600,
+  helmet:null,helmetV:null,beret:false,mask:true,beard:null,bandana:'#7C4DFF',goggle:false,scar:false,eyeL:'#B388FF',type:'ninja'},
+medic:{nm:'Elena "Pulso"',ic:'⛑️',sk:'#FFE0B2',hr:'#FF7043',hs:'ponytail',ar:'#1B5E20',al:'#66BB6A',pt:'#0D3B0D',ds:'Sanadora',hp:95,sp:2.9,rd:21,co:700,
+  helmet:'#2E7D32',helmetV:'#A5D6A7',beret:false,mask:false,beard:null,bandana:null,goggle:false,scar:false,eyeL:'#4CAF50',type:'soldier'},
+berserker:{nm:'Ragnar "Hacha"',ic:'🪓',sk:'#C9A96E',hr:'#BF360C',hs:'mohawk',ar:'#4E342E',al:'#795548',pt:'#3E2723',ds:'Furia',hp:180,sp:2.8,rd:26,co:850,
+  helmet:null,helmetV:null,beret:false,mask:false,beard:'#4E342E',bandana:'#D32F2F',goggle:false,scar:true,eyeL:'#FF1744',type:'gladiator'},
+hacker:{nm:'Nova "Glitch"',ic:'💻',sk:'#E8D5F0',hr:'#E040FB',hs:'short',ar:'#0D47A1',al:'#1E88E5',pt:'#0A2472',ds:'Hacker',hp:75,sp:3.2,rd:19,co:1000,
+  helmet:null,helmetV:null,beret:false,mask:false,beard:null,bandana:null,goggle:true,scar:false,eyeL:'#E040FB',type:'cyborg'},
+titan:{nm:'Atlas "Titan"',ic:'🗿',sk:'#A1887F',hr:'#212121',hs:'bald',ar:'#37474F',al:'#78909C',pt:'#263238',ds:'Inmortal',hp:280,sp:1.6,rd:30,co:1200,
+  helmet:'#455A64',helmetV:'#CFD8DC',beret:false,mask:false,beard:'#1A1A1A',bandana:null,goggle:false,scar:true,eyeL:'#FF6F00',type:'tank'},
+assassin:{nm:'Nyx "Silen"',ic:'🗡️',sk:'#F0E6D3',hr:'#311B92',hs:'bun',ar:'#1A1A1A',al:'#424242',pt:'#0D0D0D',ds:'Letal silencioso',hp:55,sp:4.5,rd:17,co:1500,
+  helmet:null,helmetV:null,beret:false,mask:true,beard:null,bandana:'#9C27B0',goggle:false,scar:false,eyeL:'#CE93D8',type:'ninja'},
+general:{nm:'Marcus "Lex"',ic:'🎖️',sk:'#D4A574',hr:'#3E2723',hs:'buzz',ar:'#1B5E20',al:'#43A047',pt:'#0D3311',ds:'Comandante',hp:120,sp:2.6,rd:23,co:2000,
+  helmet:'#33691E',helmetV:'#8BC34A',beret:true,mask:false,beard:'#2E1B0E',bandana:null,goggle:false,scar:true,eyeL:'#FFD600',type:'soldier'}
 };
 var WP={
 pistol:{nm:'Deagle X9',ic:'🔫',ds:'Triple disparo',cl:'#FFD600',tr:'#FFF9C4',rl:26,cn:3,spr:.09,ina:0,spd:7,rd:5,lf:65,dm:16,co:0,gl:22,gw:5,gc:'#37474F',bc:'#FFD600',wpType:'pistol'},
@@ -263,7 +277,14 @@ shotgun:{nm:'Rhino S12',ic:'💥',ds:'6 perdigones',cl:'#FF6E40',tr:'#FFAB91',rl
 railgun:{nm:'Rayo-X',ic:'⚡',ds:'Penetrante',cl:'#00E5FF',tr:'#00BCD4',rl:55,cn:1,spr:0,ina:0,spd:18,rd:5,lf:100,dm:65,co:75,pc:1,gl:32,gw:5,gc:'#00838F',bc:'#00E5FF',wpType:'railgun'},
 minigun:{nm:'Tormenta M6',ic:'🔥',ds:'Lluvia de fuego',cl:'#FF4081',tr:'#F48FB1',rl:5,cn:1,spr:0,ina:.15,spd:8,rd:3,lf:50,dm:10,co:150,gl:30,gw:10,gc:'#424242',bc:'#FF4081',wpType:'minigun'},
 plasma:{nm:'Cañón Plasma',ic:'☄️',ds:'Explosiva',cl:'#76FF03',tr:'#CCFF90',rl:50,cn:1,spr:0,ina:0,spd:5,rd:10,lf:85,dm:40,co:250,ex:1,exR:100,exD:35,gl:28,gw:12,gc:'#1B5E20',bc:'#76FF03',wpType:'plasma'},
-rocket:{nm:'Lanzador XT',ic:'🚀',ds:'Teledirigido',cl:'#FF1744',tr:'#FF8A80',rl:80,cn:1,spr:0,ina:0,spd:4,rd:8,lf:120,dm:30,co:500,ex:1,exR:130,exD:55,hm:1,gl:34,gw:13,gc:'#3E1A00',bc:'#FF1744',wpType:'rocket'}
+rocket:{nm:'Lanzador XT',ic:'🚀',ds:'Teledirigido',cl:'#FF1744',tr:'#FF8A80',rl:80,cn:1,spr:0,ina:0,spd:4,rd:8,lf:120,dm:30,co:500,ex:1,exR:130,exD:55,hm:1,gl:34,gw:13,gc:'#3E1A00',bc:'#FF1744',wpType:'rocket'},
+laser:{nm:'Rayo Láser V3',ic:'🌟',ds:'Rayo continuo',cl:'#FFEA00',tr:'#FFF176',rl:3,cn:1,spr:0,ina:.02,spd:22,rd:3,lf:35,dm:7,co:600,gl:28,gw:4,gc:'#F57F17',bc:'#FFEA00',wpType:'pistol'},
+freeze_gun:{nm:'Cryo Blaster',ic:'❄️',ds:'Congela enemigos',cl:'#40C4FF',tr:'#B3E5FC',rl:35,cn:1,spr:0,ina:0,spd:9,rd:7,lf:70,dm:18,co:750,gl:26,gw:7,gc:'#01579B',bc:'#40C4FF',wpType:'shotgun'},
+sniper:{nm:'Widow MK7',ic:'🔭',ds:'Un tiro, una baja',cl:'#B0BEC5',tr:'#ECEFF1',rl:90,cn:1,spr:0,ina:0,spd:25,rd:4,lf:200,dm:120,co:900,pc:1,gl:38,gw:4,gc:'#37474F',bc:'#B0BEC5',wpType:'railgun'},
+flamethrower:{nm:'Inferno X',ic:'🔥',ds:'Lanzallamas',cl:'#FF6D00',tr:'#FFAB40',rl:3,cn:2,spr:.25,ina:.12,spd:5,rd:5,lf:18,dm:6,co:1100,gl:30,gw:10,gc:'#4E342E',bc:'#FF6D00',wpType:'minigun'},
+grenade:{nm:'Lanza Granadas',ic:'💣',ds:'Explosión en área',cl:'#827717',tr:'#DCE775',rl:65,cn:1,spr:0,ina:0,spd:6,rd:9,lf:55,dm:25,co:1300,ex:1,exR:160,exD:65,gl:26,gw:11,gc:'#33691E',bc:'#827717',wpType:'plasma'},
+dual:{nm:'Dual Vipers',ic:'⚔️',ds:'Doble pistola rápida',cl:'#E040FB',tr:'#F3E5F5',rl:12,cn:2,spr:.06,ina:.03,spd:9,rd:4,lf:55,dm:14,co:1600,gl:20,gw:4,gc:'#4A148C',bc:'#E040FB',wpType:'pistol'},
+cannon:{nm:'Destructor Omega',ic:'☠️',ds:'Devastación total',cl:'#FF3D00',tr:'#FF8A65',rl:120,cn:1,spr:0,ina:0,spd:3,rd:14,lf:150,dm:80,co:2500,ex:1,exR:200,exD:100,gl:40,gw:16,gc:'#1A1A1A',bc:'#FF3D00',wpType:'rocket'}
 };
 function gLvl(lv){var b=lv%5===0;return{kG:b?1:Math.min(25,4+Math.floor(lv*1.5)),mE:b?0:Math.min(6,2+Math.floor(lv/2)),hM:1+(lv-1)*.2,dM:1+(lv-1)*.15,sM:1+(lv-1)*.05,rw:b?lv*4:5+lv*2,iB:b,tN:Math.min(7,1+Math.floor(lv/2)),hN:Math.min(5,1+Math.floor(lv/3))}}
 
@@ -1022,8 +1043,33 @@ function inBu(e){for(var i=0;i<cB.length;i++)if(pir(e.x,e.y,cB[i]))return true;r
 function cl(v,lo,hi){return Math.max(lo,Math.min(hi,v))}
 function mvE(e,dx,dy){var nx=e.x+dx,ny=e.y+dy;for(var i=0;i<cW.length;i++){var w=cW[i];if(rcc(w,nx,e.y,e.rd))nx=e.x;if(rcc(w,e.x,ny,e.rd))ny=e.y}e.x=cl(nx,e.rd,WW-e.rd);e.y=cl(ny,e.rd,WH-e.rd)}
 // Safe portal: check dest isn't inside a wall
-function safePos(x,y,rd){for(var i=0;i<cW.length;i++){if(rcc(cW[i],x,y,rd))return false}return true}
-function ckP(e){if(e.pCd>0)return;for(var p=0;p<cP.length;p++){var pr=cP[p];for(var i=0;i<pr.length;i++){if(Math.hypot(e.x-pr[i].x,e.y-pr[i].y)<28){var d=pr[(i+1)%pr.length];if(safePos(d.x,d.y,e.rd)){e.x=d.x;e.y=d.y;e.pCd=90;aP(d.x,d.y,'#E040FB',20,5);sPt();}return}}}}
+function safePos(x,y,rd){for(var i=0;i<cW.length;i++){if(rcc(cW[i],x,y,rd))return false}return x>rd&&x<WW-rd&&y>rd&&y<WH-rd}
+function findSafe(ox,oy,rd){
+  // If original pos is safe, use it
+  if(safePos(ox,oy,rd)) return {x:ox,y:oy};
+  // Try offsets in expanding circles
+  for(var dist=40;dist<200;dist+=20){
+    for(var a=0;a<8;a++){
+      var ang=a*Math.PI/4;
+      var nx=ox+Math.cos(ang)*dist, ny=oy+Math.sin(ang)*dist;
+      if(safePos(nx,ny,rd)) return {x:nx,y:ny};
+    }
+  }
+  return {x:WW/2,y:WH/2}; // Fallback to center
+}
+function fixPortals(){
+  // Move any portal point that sits inside a wall
+  for(var p=0;p<cP.length;p++){
+    var pr=cP[p];
+    for(var i=0;i<pr.length;i++){
+      if(!safePos(pr[i].x,pr[i].y,30)){
+        var s=findSafe(pr[i].x,pr[i].y,30);
+        pr[i].x=s.x; pr[i].y=s.y;
+      }
+    }
+  }
+}
+function ckP(e){if(e.pCd>0)return;for(var p=0;p<cP.length;p++){var pr=cP[p];for(var i=0;i<pr.length;i++){if(Math.hypot(e.x-pr[i].x,e.y-pr[i].y)<28){var dest=pr[(i+1)%pr.length];var safe=findSafe(dest.x,dest.y,e.rd);e.x=safe.x;e.y=safe.y;e.pCd=90;aP(safe.x,safe.y,'#E040FB',20,5);sPt();return}}}}
 function expl(x,y,rd,dm,c){aP(x,y,c,35,7);aP(x,y,'#FFF',15,4);sEx();pts.push({x:x,y:y,vx:0,vy:0,life:15,ml:15,c:c,sz:rd,ring:1});for(var i=0;i<ens.length;i++){var e=ens[i];if(!e.alive)continue;var d=Math.hypot(e.x-x,e.y-y);if(d<rd){var dd=dm*(1-d/rd);e.hp-=dd;e.hF=10;aDN(e.x,e.y-20,dd,'#FF6E40');ckKl(e)}}if(boss&&boss.alive){var d=Math.hypot(boss.x-x,boss.y-y);if(d<rd){boss.hp-=dm*(1-d/rd);boss.hF=10;if(boss.hp<=0&&boss.alive){boss.alive=false;P.kills++;aP(boss.x,boss.y,'#F44336',50,8);sK();sLv();shk(15);endG(true)}}}}
 function ckKl(e){if(e.hp<=0&&e.alive){e.alive=false;P.kills++;P.sup=Math.min(P.supM,P.sup+20);aP(e.x,e.y,e.ar||'#F44336',30,6);sK();if(st.mode!=='pvp'&&P.kills>=(lvC?lvC.kG:5))endG(true)}}
 
@@ -1940,7 +1986,10 @@ function switchWpn(wk) {
   document.getElementById('coinH').textContent = st.coins;
 }
 
-function startG(){lvC=gLvl(st.level);cMap=MAPS[st.map]||MAPS[0];cW=cMap.w;cB=cMap.b;cP=cMap.p;
+function startG(){lvC=gLvl(st.level);cMap=MAPS[st.map]||MAPS[0];cW=cMap.w;cB=cMap.b;
+  // Deep copy portals so fixPortals doesn't modify original map data
+  cP=[];for(var pi=0;pi<cMap.p.length;pi++){var pair=[];for(var pj=0;pj<cMap.p[pi].length;pj++)pair.push({x:cMap.p[pi][pj].x,y:cMap.p[pi][pj].y});cP.push(pair)}
+  fixPortals();
   var ch=CH[st.char],clv=cL(st.char),cm2=cM(clv);
   P.x=WW/2;P.y=WH-140;P.mhp=Math.floor(ch.hp*cm2.hp);P.hp=P.mhp;P.sp=+(ch.sp*cm2.sp).toFixed(2);P.rd=ch.rd;P.dr=cm2.dr;
   P.kills=0;P.lives=3;P.alive=true;P.sup=0;P.aA=-Math.PI/2;P.mA=0;P.rlT=0;P.inv=60;P.muzT=0;P.wc=0;P.pCd=0;P.team='blue';P.mov=false;P.hF=0;P.rDmg=1;P.rSp=1;P.rSh=0;P.rRap=1;
